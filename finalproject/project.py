@@ -14,7 +14,7 @@ def glowingEdges(image, imageGray):
     tempImage = cv2.addWeighted(sobelX, 0.5, sobelY, 0.5, 0)
     
     for position,value in np.ndenumerate(tempImage):
-        tempImage[position] = abs(value - 255)
+        tempImage[position] = abs(255 - value)
         
     finalImage = np.zeros_like(image)
     
@@ -46,7 +46,7 @@ def pencilSketch(image):
   
     
 
-def watercolor(image, imageGray):
+def watercolor(image):
     
     finalImage = np.zeros_like(image)
     
