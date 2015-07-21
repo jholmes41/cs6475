@@ -1,0 +1,71 @@
+Sketch:
+  First tried Canny Edges
+  
+Color sketch:
+  def sketchImage(image, imageGray):
+    # WRITE YOUR CODE HERE.
+
+    imageBlur = cv2.GaussianBlur(imageGray,(3,3),0)
+    # gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+    sobelX = cv2.convertScaleAbs(cv2.Sobel(imageBlur, cv2.CV_16S, 1, 0, ksize = 3, scale = 1, delta = 0, borderType = cv2.BORDER_DEFAULT))
+    sobelY = cv2.convertScaleAbs(cv2.Sobel(imageBlur, cv2.CV_16S, 0, 1, ksize = 3, scale = 1, delta = 0, borderType = cv2.BORDER_DEFAULT))
+    tempImage = cv2.addWeighted(sobelX, 0.5, sobelY, 0.5, 0)
+    
+    #for position,value in np.ndenumerate(tempImage):
+    #    tempImage[position] = abs(value - 255)
+        
+    finalImage = image
+    
+    for position, value in np.ndenumerate(tempImage):
+      if value != 0:
+        finalImage[position] = value
+            
+    return finalImage
+    
+    
+    
+    
+    B&W sketch:
+    def sketchImage(image, imageGray):
+    # WRITE YOUR CODE HERE.
+
+    imageBlur = cv2.GaussianBlur(imageGray,(3,3),0)
+    # gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+    sobelX = cv2.convertScaleAbs(cv2.Sobel(imageBlur, cv2.CV_16S, 1, 0, ksize = 3, scale = 1, delta = 0, borderType = cv2.BORDER_DEFAULT))
+    sobelY = cv2.convertScaleAbs(cv2.Sobel(imageBlur, cv2.CV_16S, 0, 1, ksize = 3, scale = 1, delta = 0, borderType = cv2.BORDER_DEFAULT))
+    tempImage = cv2.addWeighted(sobelX, 0.5, sobelY, 0.5, 0)
+    
+    for position,value in np.ndenumerate(tempImage):
+        tempImage[position] = abs(value - 255)
+        
+    finalImage = image
+    
+    for position, value in np.ndenumerate(tempImage):
+      if value != 0:
+        finalImage[position] = value
+            
+    return finalImage
+    
+    
+    Color sketch:
+    def sketchImage(image, imageGray):
+    # WRITE YOUR CODE HERE.
+
+    imageBlur = cv2.GaussianBlur(imageGray,(3,3),0)
+    # gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+    sobelX = cv2.convertScaleAbs(cv2.Sobel(imageBlur, cv2.CV_16S, 1, 0, ksize = 3, scale = 1, delta = 0, borderType = cv2.BORDER_DEFAULT))
+    sobelY = cv2.convertScaleAbs(cv2.Sobel(imageBlur, cv2.CV_16S, 0, 1, ksize = 3, scale = 1, delta = 0, borderType = cv2.BORDER_DEFAULT))
+    tempImage = cv2.addWeighted(sobelX, 0.5, sobelY, 0.5, 0)
+    
+    for position,value in np.ndenumerate(tempImage):
+        tempImage[position] = abs(value - 255)
+        
+    finalImage = np.zeros_like(image)
+    
+    for position, value in np.ndenumerate(tempImage):
+      if value != 255:
+        finalImage[position] = value
+      else:
+        finalImage[position] = image[position]
+            
+    return finalImage
